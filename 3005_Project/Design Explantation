@@ -1,0 +1,64 @@
+Design Explantation
+Here I will discuss my assumptions about the database structure for the health and fitness club management system.
+The explanations of entities along with their attributes and relationships will give a full picture of the idea behind the database.
+
+Dependencies:
+I did not need to show normalization changes because I strictly followed cardinality and had it mapped to avoid being out of normal standard for the tables.
+From the onset I avoided composite or multivalued attributes to ensure tables were in 1NF.
+Even after drawing the relational database schema, the tables and columns remained in 2NF as the non-prime attributes had full dependency only on primary
+keys and no partial dependencies.
+I ensured no table had trasitive dependencies to guarantee 3NF.
+
+Entities:
+Trainer - Mainly at the club for the purpose of training members and should have at least one member being trained. By definition, a trainer is employed 
+by the club and works there but can also work in multiple locations. May also partake in workshops by leading them. Cannot be an administrator.
+
+Administrator - In charge of members' subscription, payments and experience, oversees workshops, supervises equipment and may manage a location. By definition of 
+being an administrator, they work at the club. Cannot be a trainer.
+
+Member - Strictly a user of the fitness club and its services. Not a member or trainer.
+
+Locations - Club consists of different branches.
+
+Equipment - Any form of equipment owned by the club, although here we focus more on those that involve offering members services.
+
+Workshop - Optional classes that are open for group activities or one-on-one sessions. Administrators and trainers are in charge but note that the workshops exist 
+with or without active members. Generally they are loosely created but recorded so even if one does not have members at a time, it still remains an existing 
+workshop on record.
+
+
+Weak:
+room - multipurpose rooms in different club locations popular for hosting workshops.
+health - record of a member's health and fitness statistics.
+achievement - goals attained by members that they may or may not record.
+
+Relatioships:
+works: Representing trainers and administrators working at any given location.For trainers, it is many-to-many as a single trainer may work at multiple locations and
+any location may have many trainers. Each administrator may only owrk at one location but a location may have many administrators depending on capacity, number of 
+members,etc.
+
+trains - relationship between any given member and trainer. Every trainer registered on payroll and must be actively training a member, therefore it is assumed members
+that choose to have trainers do so for a season.
+
+hosts - Rooms may host workshops.
+
+earns - relationship showing an achievement must be earned by a member as it is only defined on the members' success hence, achievement is considered a weak entity 
+with total participation. One member may have many.
+
+owns - relationship health and fitness stats with their member owner and as thus health can only exist as an extension of the owner making it a weak entity. One-to-
+one relationship.
+
+monitors - Key role of an administrator and thus every administrator should monitor at least one member. Exceptions can be made for newly hired administrators or in
+cases of members leaving unexpectedly. For members enrolled, unkown to them, a single admin is in charge of their billing, subscription, wellness, etc.
+
+supervises - Additional duty of admins is supervising the equipment. More importantly the ones open to regular use by members. 
+
+registers - Additional duty of some administrators as each workshop needs to be registered by someone.
+
+manages - Any singular admin at a location may be the assigned manager and every location must have at least one of its admins as the assigned manager.
+
+houses - By default a room cannot exist without a building location but a location may not have "rooms" in the sense of rooms open to use of different activites separate 
+from regular large communal spaces at the club. One to many between location and room.
+
+leads - Action of trainer leading a workshop as every workshop must have a leader on record  from the gym. Any trainer may lead a workshop but no workshop has more 
+than one trainer because there is an admin in charge as well.

@@ -1,0 +1,42 @@
+a. SELECT *
+   FROM hosts
+   WHERE lower(session)::date <= '2023-03-03' AND upper(session)::date >= '2023-03-03';
+   -- room 3, location 1
+   
+b. SELECT Administrator.admin_id, Administrator.first_name, Administrator.last_name
+   FROM Administrator
+   LEFT JOIN Member ON Administrator.admin_id = Member.admin_id
+   WHERE Member.member_id IS NULL; -- nate and isabella
+
+c. UPDATE Health
+   SET age = age + 1;
+
+d. SELECT Member.member_id, Member.first_name, Member.last_name, Health.age
+   FROM Member
+   JOIN Health ON Member.member_id = Health.mem
+   WHERE Health.age > 29; --sara, tiger, lily and kevin
+
+e.  (SELECT 'Trainer' as role, trainer_id as employee_id, first_name, last_name, employment_date
+    FROM Trainer)
+    UNION
+    (SELECT 'Administrator' as role, admin_id as employee_id, first_name, last_name, employment_date
+    FROM Administrator)
+    ORDER BY employment_date
+    LIMIT 1;    -- Al Burn longest serving
+
+f. SELECT location_id, location_name, location_address, launch_date
+   FROM Locations
+   WHERE launch_date > '2020-12-31'; -- Riverside, city center, harborside 
+
+g. UPDATE Member
+   SET email = 'bartholomew.allen@email.com'
+   WHERE first_name = 'Barry' AND last_name = 'Allen';
+
+h. SELECT location_name
+   FROM Locations;
+
+i. INSERT INTO Member (admin_id, first_name, last_name, DOB, gender, email, registration_date, expiry, subscription) VALUES
+   (6,'Bruce', 'Wayne', '1985-04-03', 'Male', 'imbatman@email.com', '2023-04-07', '2024-04-06', 'Yearly');   
+ 
+j. DELETE FROM Equipment
+   WHERE last_serviced < '2022-04-01'; -- deletes treadmill, stationary bike, rowing machine   
